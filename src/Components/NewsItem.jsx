@@ -1,3 +1,4 @@
+import image from "../assets/news.jpeg";
 const NewsItem = ({ title, description, src, url }) => {
   return (
     <div
@@ -10,10 +11,14 @@ const NewsItem = ({ title, description, src, url }) => {
         justifyContent: "space-between",
       }}
     >
-      <img src={src} className="card-img-top" alt="..." />
+      <img src={src ? src : image} className="card-img-top" alt="..." />
       <div
         className="card-body"
-        style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
       >
         <div>
           <h5 className="card-title">{title.slice(0, 50)}</h5>
