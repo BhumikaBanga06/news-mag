@@ -29,7 +29,7 @@ const NewsItem = ({ title, description, src, url }) => {
           </p>
         </div>
         <a href={url} className="btn btn-primary">
-          Go somewhere
+          Read more
         </a>
       </div>
     </div>
