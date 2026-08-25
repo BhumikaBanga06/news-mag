@@ -1,4 +1,4 @@
-const Navbar = ({ setCategory }) => {
+const Navbar = ({ setCategory, category }) => {
   return (
     <nav
       className="navbar navbar-expand-lg bg-body-tertiary"
@@ -22,39 +22,74 @@ const Navbar = ({ setCategory }) => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <div
-                className="nav-link"
-                onClick={() => setCategory("technology")}
+              <a
+                href="#"
+                className={`nav-link ${
+                  category === "technology" ? "active" : ""
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setCategory("technology");
+                }}
               >
                 tech
-              </div>
+              </a>
             </li>
 
             <li className="nav-item">
-              <div className="nav-link" onClick={() => setCategory("business")}>
+              <a
+                href="#"
+                className={`nav-link ${
+                  category === "business" ? "active" : ""
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setCategory("business");
+                }}
+              >
                 business
-              </div>
+              </a>
             </li>
 
             <li className="nav-item">
-              <div className="nav-link" onClick={() => setCategory("health")}>
+              <a
+                href="#"
+                className={`nav-link ${category === "health" ? "active" : ""}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setCategory("health");
+                }}
+              >
                 health
-              </div>
+              </a>
             </li>
 
             <li className="nav-item">
-              <div className="nav-link" onClick={() => setCategory("sports")}>
+              <a
+                href="#"
+                className={`nav-link ${category === "sports" ? "active" : ""}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setCategory("sports");
+                }}
+              >
                 sports
-              </div>
+              </a>
             </li>
 
             <li className="nav-item">
-              <div
-                className="nav-link"
-                onClick={() => setCategory("entertainment")}
+              <a
+                href="#"
+                className={`nav-link ${
+                  category === "entertainment" ? "active" : ""
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setCategory("entertainment");
+                }}
               >
                 entertainment
-              </div>
+              </a>
             </li>
           </ul>
         </div>
