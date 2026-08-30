@@ -5,7 +5,6 @@ import NewsItem from "./NewsItem";
 
 const NewsBoard = ({ category }) => {
   const [articles, setArticles] = useState([]);
-  const [time, setTime] = useState(new Date());
 
   useEffect(() => {
     let url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${
@@ -15,22 +14,11 @@ const NewsBoard = ({ category }) => {
       .then((response) => response.json())
       .then((data) => setArticles(data.articles));
   }, [category]);
-  useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <div>
       <h2 className="text-center display-4">
         Latest <span className="badge bg-danger ">News</span>
       </h2>
-      <div className="d-flex justify-content-center">
-        <div className="live-clock">
-          <span className="live-dot"></span>
-          {time.toLocaleTimeString()}
-        </div>
-      </div>
       <style>{`
   .live-clock {
     display: inline-flex;
@@ -42,7 +30,6 @@ const NewsBoard = ({ category }) => {
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
-    margin-bottom: 10px;
   }
   .live-dot {
     width: 8px;

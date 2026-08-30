@@ -1,5 +1,13 @@
+import { ReactEventHandler } from "react";
+
 import image from "../assets/news.jpeg";
+
 const NewsItem = ({ title, description, src, url }) => {
+  const onImageError = (event) => {
+    event.currentTarget.onerror = null;
+    event.currentTarget.src = image;
+  };
+
   return (
     <div
       className="card bg-dark text-light px-2 py-2"
@@ -11,7 +19,16 @@ const NewsItem = ({ title, description, src, url }) => {
         justifyContent: "space-between",
       }}
     >
-      <img src={src ? src : image} className="card-img-top" alt="..." />
+      <img
+        src={src}
+        className="card-img-top"
+        style={{
+          maxHeight: "200px",
+          objectFit: "contain",
+        }}
+        alt="Default news image"
+        onError={onImageError}
+      />
       <div
         className="card-body"
         style={{
