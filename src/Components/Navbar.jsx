@@ -1,4 +1,49 @@
+import { useState, useEffect } from "react";
+
 const Navbar = ({ setCategory, category }) => {
+  const [time, setTime] = useState(new Date());
+  const [isCollapsed, setIsCollapsed] = useState(window.innerWidth < 992);
+
+  const categories = [
+    {
+      name: "Tech",
+      key: "technology",
+    },
+    {
+      name: "Business",
+      key: "business",
+    },
+    {
+      name: "Health",
+      key: "health",
+    },
+    {
+      name: "Sports",
+      key: "sports",
+    },
+    {
+      name: "Entertainment",
+      key: "entertainment",
+    },
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsCollapsed(window.innerWidth < 992);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <nav
       className="navbar navbar-expand-lg bg-body-tertiary"
@@ -8,20 +53,56 @@ const Navbar = ({ setCategory, category }) => {
         <a className="navbar-brand" href="#">
           <span className="badge bg-light text-dark fs-4">NewsMag</span>
         </a>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+        <div
+          style={{
+            display: "flex",
+            columnGap: "10px",
+          }}
         >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+          {isCollapsed ? (
+            <div className="live-clock">
+              <span className="live-dot"></span>
+              {time.toLocaleTimeString()}
+            </div>
+          ) : null}
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div
+          className="collapse navbar-collapse"
+          id="navbarNav"
+          style={{
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <ul className="navbar-nav">
-            <li className="nav-item">
+            {categories.map((catg) => (
+              <li className="nav-item">
+                <a
+                  href="#"
+                  className={`nav-link ${
+                    category === catg.key ? "active" : ""
+                  }`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setCategory(catg.key);
+                  }}
+                >
+                  {catg.name}
+                </a>
+              </li>
+            ))}
+            {/* <li className="nav-item">
               <a
                 href="#"
                 className={`nav-link ${
@@ -32,7 +113,7 @@ const Navbar = ({ setCategory, category }) => {
                   setCategory("technology");
                 }}
               >
-                tech
+                Tech
               </a>
             </li>
 
@@ -47,7 +128,7 @@ const Navbar = ({ setCategory, category }) => {
                   setCategory("business");
                 }}
               >
-                business
+                Business
               </a>
             </li>
 
@@ -60,7 +141,7 @@ const Navbar = ({ setCategory, category }) => {
                   setCategory("health");
                 }}
               >
-                health
+                Health
               </a>
             </li>
 
@@ -73,7 +154,7 @@ const Navbar = ({ setCategory, category }) => {
                   setCategory("sports");
                 }}
               >
-                sports
+                Sports
               </a>
             </li>
 
@@ -88,10 +169,16 @@ const Navbar = ({ setCategory, category }) => {
                   setCategory("entertainment");
                 }}
               >
-                entertainment
+                Entertainment
               </a>
-            </li>
+            </li> */}
           </ul>
+          {!isCollapsed ? (
+            <div className="live-clock">
+              <span className="live-dot"></span>
+              {time.toLocaleTimeString()}
+            </div>
+          ) : null}
         </div>
       </div>
     </nav>
